@@ -62,7 +62,7 @@ int topple_and_check(int grid1[3][3])
 		{
 			if (gridc[i][j] > 3)
 			{
-				grid1[i][j] -= 3;
+				grid1[i][j] -= 4;
 				if (i - 1 >= 0)
 					grid1[i - 1][j] += 1;
 				if (j - 1 >= 0)
