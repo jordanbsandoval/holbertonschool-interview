@@ -9,7 +9,7 @@ void print_grid(int grid[3][3])
 {
 	int i, j;
 
-	printf("=\n")
+	printf("=\n");
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -111,6 +111,6 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 	print_grid(grid1);
 	while (stable == 0)
 	{
-		stable = heck(grid1);
+		stable = checkeo(grid1);
 	}
 }
