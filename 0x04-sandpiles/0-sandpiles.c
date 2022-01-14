@@ -46,7 +46,7 @@ void copy_grid(int grid1[3][3], int gridc[3][3])
  * @grid1 : the grid
  * Return: 1 if stable, 0 if not yet
  */
-int topple_and_check(int grid1[3][3])
+int checkeo(int grid1[3][3])
 {
 	int i, j;
 	int gridc[3][3] = {
@@ -108,7 +108,12 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 				stable = 0;
 		}
 	}
+
 	if (stable == 1)
 		return;
 	print_grid(grid1);
+	while (stable == 0)
+	{
+		stable = topple_and_check(grid1);
+	}
 }
