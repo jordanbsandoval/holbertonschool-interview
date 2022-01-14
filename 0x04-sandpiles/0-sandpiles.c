@@ -9,7 +9,6 @@ void print_grid(int grid[3][3])
 {
 	int i, j;
 
-	printf("=\n");
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -63,7 +62,7 @@ int topple_and_check(int grid1[3][3])
 		{
 			if (gridc[i][j] > 3)
 			{
-				grid1[i][j] -= 4;
+				grid1[i][j] -= 3;
 				if (i - 1 >= 0)
 					grid1[i - 1][j] += 1;
 				if (j - 1 >= 0)
@@ -105,7 +104,7 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 		for (j = 0; j < 3; j++)
 		{
 			grid1[i][j] += grid2[i][j];
-			if (grid1[i][j] > 3)
+			if (grid1[i][j] < 3)
 				stable = 0;
 		}
 	}
