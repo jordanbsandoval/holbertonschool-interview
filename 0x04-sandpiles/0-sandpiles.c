@@ -9,6 +9,7 @@ void print_grid(int grid[3][3])
 {
 	int i, j;
 
+	printf("=\n")
 	for (i = 0; i < 3; i++)
 	{
 		for (j = 0; j < 3; j++)
@@ -32,17 +33,13 @@ void copy_grid(int grid1[3][3], int gridc[3][3])
 	int i, j;
 
 	for (i = 0; i < 3; i++)
-	{
 		for (j = 0; j < 3; j++)
-		{
 			gridc[i][j] = grid1[i][j];
-		}
-	}
 }
 
 
 /**
- * topple_and_check - topples a grid only once and check if it's stable
+ * checkeo - topples a grid only once and check if it's stable
  * @grid1 : the grid
  * Return: 1 if stable, 0 if not yet
  */
@@ -114,6 +111,6 @@ void sandpiles_sum(int grid1[3][3], int grid2[3][3])
 	print_grid(grid1);
 	while (stable == 0)
 	{
-		stable = topple_and_check(grid1);
+		stable = heck(grid1);
 	}
 }
