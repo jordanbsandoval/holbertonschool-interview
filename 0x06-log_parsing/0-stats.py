@@ -1,64 +1,36 @@
 #!/usr/bin/python3
-'''interview of elements in an list'''
-import re
-import signal
-import sys
+"""0x06. Log Parsing"""
+from sys import stdin
 
 
-def print_info(info, size):
-    codes = list(info.keys())
-    codes.sort()
-    print("File size: {}".format(size))
-    for code in codes:
-        print("{}: {}".format(code, info[code]))
+total_size = 0
+stats = {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0,
+         '404': 0, '405': 0, '500': 0}
 
 
-def signal_handler(sig, frame):
-    pass
-
-
-def main():
-    valid_codes = [200, 301, 400, 401, 403, 404, 405, 500]
-    regex = {
-        "ip":
-            r"((?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}"
-            "(?:25[0-5]|2[0-4]\d|1?\d?\d)|\w+)",
-
-        "date": r"(20\d{2}-[01]?\d-(?:3[01]|[0-2]\d))",
-
-        "time": "([0-5]\d:[0-5]\d:[0-5]\d\.\d+)",
-
-        "code": "(\w+)",
-
-        "size": "(\d+)",
-
-        "path": "/projects/260"
-    }
-
-    pattern = \
-        '^{ip} ?- ?\[{date} {time}\] "GET {path} HTTP/1.1" {code} {size}$'
-    pattern = pattern.format(**regex)
-
-    line_counter = 0
-    code_counter = {}
-    sizes = 0
-    signal.signal(signal.SIGINT, signal_handler)
-    for line in sys.stdin:
-        out = re.match(pattern, line)
-        if out:
-            line_counter += 1
-            sizes += int(out.group(5))
-            code = out.group(4)
-            if code in map(str, valid_codes):
-                if code not in code_counter.keys():
-                    code_counter[code] = 1
-                else:
-                    code_counter[code] += 1
-            if line_counter % 10 == 0:
-                print_info(code_counter, sizes)
-    if line_counter == 0 or line_counter % 10 != 0:
-        print_info(code_counter, sizes)
+def print_stats():
+    """A script that reads stdin line by line and computes metrics"""
+    print("File size: {}".format(total_size))
+    for key, value in sorted(stats.items()):
+        if value > 0:
+            print("{}: {}".format(key, value))
 
 
 if __name__ == "__main__":
-    main()
+    line_counter = 0
+    try:
+        for line in stdin:
+            args = line.split()
+            line_counter += 1
+            if len(args) > 2:
+                total_size += int(args[-1])
+                if args[-2] in stats:
+                    stats.update({str(args[-2]): stats.get(args[-2]) + 1})
+            if line_counter == 10:
+                print_stats()
+                line_counter = 0
+    except KeyboardInterrupt:
+        print_stats()
+        raise
+    print_stats()
+
